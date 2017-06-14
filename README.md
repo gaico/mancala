@@ -25,10 +25,19 @@ Er is gekozen voor Spring-Boot omdat hierin snel een applicatie met een http int
  Ik heb niet gekozen voor een json interface maar voor een plain text interface. Dit lijkt misschien een rare keus omdat json de de facto standaard is maar het bespaart de overhead van json in de communicatie en de plain text interface is simpel genoeg gemakkelijk begrepen te kunnen worden.
  
  De interface bestaat uit een string van 16 komma gescheiden integers en beschrijft de toestand van het spel. 
+ 
  De eerste integer is de het nummer van de speler die aan de beurt is (1 of 2).
- De tweede is het nummer van de speler die gewonnen heeft (0, 1 of 2), bij het sturen naar de applicatie moet deze 0 zijn.
+ 
+  De tweede is het nummer van de speler die gewonnen heeft (0, 1 of 2), bij het sturen naar de applicatie moet deze 0 zijn.
+ 
  De andere zijn het aantal stenen per pot, waarbij de eerste staat voor de eerste pot  van speler 1, links onder, en de laatste voor de mancala van speler 2.
  De zet wordt los megegeven als parameter en is een getal van 1 tot 6, dit getal staat voor de pot van de speler die aan de beurt is geteld vanaf de mancala van zijn opponent.
+ 
+ Voorbeeld
+1. Request URL: http://localhost:9090/?move=4
+2. Request Method:PUT
+3. Request payload: 1,0,4,4,4,4,4,4,0,4,4,4,4,4,4,0
+4. Response: 2,0,0,5,5,5,5,4,0,4,4,4,4,4,4,0
 
 ### User interface
 Er wordt een user interface opgeleverd, deze is echter bedoeld om de applicatie te testen en moet niet gezien worden als een productie rijpe front-end.
@@ -49,6 +58,6 @@ Op andere platforms kan in de hoofdirectory het commando *mvn clean install* geg
 Om de applicatie te runnen kan op Windows het **start.bat** gebuikt worden.
 Op andere platforms kan in de hoofdirectory het commando *java -jar -Dserver.port=9090 target\mancala-0.0.1-SNAPSHOT.jar* gegeven worden.
 
-De applicatie start op poort 9090, mocht zeze in gebruik zijn dan kan de poort worden aangepast door het **start.bat** script, of commando, aan te passen door 9090 te vervangen door een vrij poortnummer.
+De applicatie start op poort 9090, mocht deze in gebruik zijn dan kan de poort worden aangepast door het **start.bat** script, of commando, aan te passen door 9090 te vervangen door een vrij poortnummer.
 
 De test front-end kan daarna geopend worden in de browser: http://localhost:9090/index.html. Mocht het poortnummer aangepast zijn doe dat dan ook hier. De plain text interface is aan te roepen op http://localhost:8090/?move=<nummer tussen 1 en 6>
