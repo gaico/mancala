@@ -15,43 +15,20 @@ public class MancalaGame {
 		this.northPlayer = northPlayer;
 	}
 		
-	public MancalaGame(final int[] shortHandBoardState, final Player southPlayer, final Player northPlayer) {
-		this.southPlayer = southPlayer;
-		this.northPlayer = northPlayer;
-		pots = new Pot[POTS_PER_PLAYER * 2];
-		
-		if(shortHandBoardState.length < pots.length){
-			throw new IllegalArgumentException();
-		}
-				
-		for(int i=0; i < pots.length; i++){
-			Player owner = i < POTS_PER_PLAYER ? southPlayer : northPlayer;
-			pots[i] = new Pot(shortHandBoardState[i], (i+1)%POTS_PER_PLAYER==0, owner);
-		}
-		
-		for(int i=0; i < pots.length; i++){
-			if(i == pots.length-1){
-				pots[i].setNextPot(pots[0]);
-				pots[i].setPotAccross(pots[POTS_PER_PLAYER-1]);
-			}else{
-				pots[i].setNextPot(pots[i+1]);
-				if(i == POTS_PER_PLAYER-1){
-					pots[i].setPotAccross(pots[pots.length-1]);
-				}else{
-					pots[i].setPotAccross(pots[pots.length-i-2]);
-				}
-			}
-		}
-		southPlayer.setPots(getSouthSidePots());
-		northPlayer.setPots(getNorthSidePots());
-	}
-	
 	public Pot[] getSouthSidePots(){
 		return Arrays.copyOf(this.pots, POTS_PER_PLAYER);
 	}
 	
 	public Pot[] getNorthSidePots(){
 		return Arrays.copyOfRange(this.pots, POTS_PER_PLAYER, pots.length);
+	}
+	
+	public Player getPlayerSouth() {
+		return this.southPlayer;
+	}
+
+	public Player getPlayerNorth() {
+		return this.northPlayer;
 	}
 	
 	private Player getPlayerThatHasTurn(){
@@ -65,7 +42,7 @@ public class MancalaGame {
 		return southPlayer;
 	}
 
-	public GameState move(final int movePotNumber) {
+	public MancalaGame move(final int movePotNumber) {
 		final Player playerCurrentTurn = getPlayerThatHasTurn();
 		if(movePotNumber > playerCurrentTurn.getPots().length){
 			throw new IllegalArgumentException("Startingpot not on board");
@@ -111,6 +88,6 @@ public class MancalaGame {
 			getOpponent(playerCurrentTurn).setHasWon(getOpponent(playerCurrentTurn).getMancala().stoneCount() > playerCurrentTurn.getMancala().stoneCount());
 		}
 				
-		return new GameState(this, getOpponent(playerCurrentTurn), playerCurrentTurn);
+		return new MancalaGame(pots, getOpponent(playerCurrentTurn), playerCurrentTurn);
 	}
 }

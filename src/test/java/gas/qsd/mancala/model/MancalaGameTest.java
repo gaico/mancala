@@ -7,21 +7,24 @@ import static org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.Test;
 
+import gas.qsd.mancala.service.MancalaTranslator;
+
 public class MancalaGameTest {
 
 	Player playerSouth;
 	Player playerNorth;
+	MancalaTranslator translator;
 	
 	@Before
 	public void setUp(){
 		playerSouth = new Player(1, true, false);
 		playerNorth = new Player(2, false, false);
+		translator = new MancalaTranslator();
 	}
 	
 	@Test
 	public void testCreate(){
-		int[] shortHandBoardState = new int[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14};
-		MancalaGame game = new MancalaGame(shortHandBoardState, playerSouth, playerNorth);
+		MancalaGame game = translator.gameFromShortHandGameState("1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14");
 		Pot[] northSide = game.getNorthSidePots();
 		Pot[] southSide = game.getSouthSidePots();
 		
@@ -49,32 +52,33 @@ public class MancalaGameTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testCreateInputToShortThrowsError(){
-		int[] shortHandBoardState = new int[]{1,2,3,4,5,6,7,8,9,10,11,12,13};
-		new MancalaGame(shortHandBoardState, playerSouth, playerNorth);
+		translator.gameFromShortHandGameState("1,0,1,2,3,4,5,6,7,8,9,10,11,12,13");
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testStartFromEmptyPotThrowsError(){
-		int[] shortHandBoardState = new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-		new MancalaGame(shortHandBoardState, playerSouth, playerNorth).move(5);
+		translator.gameFromShortHandGameState("1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0").move(5);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testStartFromPotNotOnBoard(){
-		int[] shortHandBoardState = new int[]{1,1,1,1,1,1,1,1,1,1,1,1,1,1};
-		new MancalaGame(shortHandBoardState, playerSouth, playerNorth).move(8);
+		//int[] shortHandBoardState = new int[]{1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+		//new MancalaGame(shortHandBoardState, playerSouth, playerNorth).move(8);
+		translator.gameFromShortHandGameState("1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1").move(8);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testStartFromMancala(){
-		int[] shortHandBoardState = new int[]{1,1,1,1,1,1,1,1,1,1,1,1,1,1};
-		new MancalaGame(shortHandBoardState, playerSouth, playerNorth).move(7);
+		//int[] shortHandBoardState = new int[]{1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+		//new MancalaGame(shortHandBoardState, playerSouth, playerNorth).move(7);
+		translator.gameFromShortHandGameState("1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1").move(7);
 	}
 	
 	@Test
 	public void testSimpleMove(){
-		int[] shortHandBoardState = new int[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14};
-		MancalaGame game = new MancalaGame(shortHandBoardState, playerSouth, playerNorth);
+		//int[] shortHandBoardState = new int[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14};
+		//MancalaGame game = new MancalaGame(shortHandBoardState, playerSouth, playerNorth);
+		MancalaGame game = translator.gameFromShortHandGameState("1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14");
 		
 		assertEquals(1, game.getSouthSidePots()[0].stoneCount());
 		assertEquals(2, game.getSouthSidePots()[1].stoneCount());
@@ -99,8 +103,9 @@ public class MancalaGameTest {
 	
 	@Test
 	public void testMoveLastStoneInOwnMancalaPlayerKeepsTurn(){
-		int[] shortHandBoardState = new int[]{0,1,4,0,0,0,0,0,0,1,0,0,0,0};
-		MancalaGame game = new MancalaGame(shortHandBoardState, playerSouth, playerNorth);
+//		int[] shortHandBoardState = new int[]{0,1,4,0,0,0,0,0,0,1,0,0,0,0};
+//		MancalaGame game = new MancalaGame(shortHandBoardState, playerSouth, playerNorth);
+		MancalaGame game = translator.gameFromShortHandGameState("1,0,0,1,4,0,0,0,0,0,0,1,0,0,0,0");
 		
 		assertTrue(playerSouth.hasTurn());
 		assertFalse(playerNorth.hasTurn());
@@ -115,8 +120,9 @@ public class MancalaGameTest {
 	
 	@Test
 	public void testPlayerWins(){
-		int[] shortHandBoardState = new int[]{0,0,0,0,0,0,0,0,0,1,0,0,0,0};
-		MancalaGame game = new MancalaGame(shortHandBoardState, playerSouth, playerNorth);
+		//int[] shortHandBoardState = new int[]{0,0,0,0,0,0,0,0,0,1,0,0,0,0};
+		//MancalaGame game = new MancalaGame(shortHandBoardState, playerSouth, playerNorth);
+		MancalaGame game = translator.gameFromShortHandGameState("1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0");
 		
 		playerNorth.setHasTurn(true);
 		playerSouth.setHasTurn(false);
@@ -131,8 +137,9 @@ public class MancalaGameTest {
 	
 	@Test
 	public void testMoveLastStoneInOwnMancalaPlayerLoses(){
-		int[] shortHandBoardState = new int[]{0,0,1,2,0,0,2,0,0,0,0,0,1,3};
-		MancalaGame game = new MancalaGame(shortHandBoardState, playerSouth, playerNorth);
+//		int[] shortHandBoardState = new int[]{0,0,1,2,0,0,2,0,0,0,0,0,1,3};
+//		MancalaGame game = new MancalaGame(shortHandBoardState, playerSouth, playerNorth);
+		MancalaGame game = translator.gameFromShortHandGameState("1,0,0,0,1,2,0,0,2,0,0,0,0,0,1,3");
 		
 		playerNorth.setHasTurn(true);
 		playerSouth.setHasTurn(false);
@@ -150,8 +157,9 @@ public class MancalaGameTest {
 	
 	@Test
 	public void testPlayerWinsBecauseOfCapture(){
-		int[] shortHandBoardState = new int[]{1,0,10,0,0,0,0,0,0,0,0,20,0,7};
-		MancalaGame game = new MancalaGame(shortHandBoardState, playerSouth, playerNorth);
+//		int[] shortHandBoardState = new int[]{1,0,10,0,0,0,0,0,0,0,0,20,0,7};
+//		MancalaGame game = new MancalaGame(shortHandBoardState, playerSouth, playerNorth);
+		MancalaGame game = translator.gameFromShortHandGameState("1,0,1,0,10,0,0,0,0,0,0,0,0,20,0,7");
 		
 		playerSouth.setHasTurn(true);
 		playerNorth.setHasTurn(false);
@@ -175,17 +183,18 @@ public class MancalaGameTest {
 		//The pot the move started from also has 1 stone which is taken and added to the moving players mancala.
 		//The mancala already had 1 stone from sowing so at the end of the move holds 3 stones.
 		
-		int[] shortHandBoardState = new int[]{0,13,0,0,0,0,0,0,0,0,0,0,0,0};
-		MancalaGame game = new MancalaGame(shortHandBoardState, playerSouth, playerNorth);
+//		int[] shortHandBoardState = new int[]{0,13,0,0,0,0,0,0,0,0,0,0,0,0};
+//		MancalaGame game = new MancalaGame(shortHandBoardState, playerSouth, playerNorth);
+		MancalaGame game = translator.gameFromShortHandGameState("1,0,0,13,0,0,0,0,0,0,0,0,0,0,0,0");
 		
 		assertEquals(0, game.getSouthSidePots()[0].stoneCount());
 		assertEquals(13, game.getSouthSidePots()[1].stoneCount());
 				
-		assertEquals(0, playerSouth.getMancala().stoneCount());
-		assertEquals(0, playerNorth.getMancala().stoneCount());
+		assertEquals(0, game.getPlayerSouth().getMancala().stoneCount());
+		assertEquals(0, game.getPlayerNorth().getMancala().stoneCount());
 		
-		assertTrue(playerSouth.hasTurn());
-		assertFalse(playerNorth.hasTurn());
+		assertTrue(game.getPlayerSouth().hasTurn());
+		assertFalse(game.getPlayerNorth().hasTurn());
 		
 		game.move(2);
 		
@@ -196,18 +205,19 @@ public class MancalaGameTest {
 		assertEquals(0, game.getNorthSidePots()[4].stoneCount());//held 1 stone from sowing, but that has been placed in the mancala
 		assertEquals(1, game.getNorthSidePots()[5].stoneCount());//holds 1 stone from sowing
 		
-		assertEquals(3, playerSouth.getMancala().stoneCount());
-		assertEquals(0, playerNorth.getMancala().stoneCount());
+		assertEquals(3, game.getPlayerSouth().getMancala().stoneCount());
+		assertEquals(0, game.getPlayerNorth().getMancala().stoneCount());
 		
-		assertTrue(playerNorth.hasTurn());
-		assertFalse(playerSouth.hasTurn());
+		assertTrue(game.getPlayerSouth().hasTurn());
+		assertFalse(game.getPlayerNorth().hasTurn());
 	}
 	
 	
 	@Test
 	public void testWinningMoveMovingPlayerWins(){		
-		int[] shortHandBoardState = new int[]{1,2,3,4,5,6,7,0,0,0,0,0,0,27};
-		MancalaGame game = new MancalaGame(shortHandBoardState, playerSouth, playerNorth);
+//		int[] shortHandBoardState = new int[]{1,2,3,4,5,6,7,0,0,0,0,0,0,27};
+//		MancalaGame game = new MancalaGame(shortHandBoardState, playerSouth, playerNorth);
+		MancalaGame game = translator.gameFromShortHandGameState("1,0,1,2,3,4,5,6,7,0,0,0,0,0,0,27");
 		
 		assertFalse(playerSouth.hasWon());
 		assertFalse(playerNorth.hasWon());
@@ -224,8 +234,9 @@ public class MancalaGameTest {
 	
 	@Test
 	public void testWinningMoveNotMovingPlayerWins(){		
-		int[] shortHandBoardState = new int[]{1,2,3,4,5,6,7,0,0,0,0,0,0,29};
-		MancalaGame game = new MancalaGame(shortHandBoardState, playerSouth, playerNorth);
+//		int[] shortHandBoardState = new int[]{1,2,3,4,5,6,7,0,0,0,0,0,0,29};
+//		MancalaGame game = new MancalaGame(shortHandBoardState, playerSouth, playerNorth);
+		MancalaGame game = translator.gameFromShortHandGameState("1,0,1,2,3,4,5,6,7,0,0,0,0,0,0,29");
 		
 		assertFalse(playerSouth.hasWon());
 		assertFalse(playerNorth.hasWon());
