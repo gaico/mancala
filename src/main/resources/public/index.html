@@ -47,10 +47,17 @@
 				for (i=1; i < 8; i++) {
 					setPotState(2,i, playerThatHasTurn, state[i+8]);
 				}
+				
 				if(playerThatHasWon > 0){
-					elem = document.getElementById(playerThatHasWon + '.' + 7);
+					elem = document.getElementById(playerThatHasWon + '.7');
 					elem.classList.add('won');
 					setStatusLine("Player " + playerThatHasWon + " has won");
+				}else{
+					elem = document.getElementById('1.7');
+					elem.classList.remove('won');
+					elem = document.getElementById('2.7');
+					elem.classList.remove('won');
+					setStatusLine("Player " + playerThatHasTurn + ": Make your move.");
 				}
 				curentState = state;
 			}
@@ -127,10 +134,11 @@
 			
 		</table>
 		<div class="clickable" onClick="setState('1,0,4,4,4,4,4,4,0,4,4,4,4,4,4,0');">Reset</div>
+		
+		<!-- 
 		<div class="clickable" onClick="setState('1,0,0,0,0,0,0,1,11,0,0,0,0,0,0,2');">Player 1 wins in 1</div>
 		<div class="clickable" onClick="setState('1,0,0,0,0,0,0,1,11,0,0,0,0,0,0,22');">Player 2 wins in 1</div>
-		<div class="clickable" onClick="setState('2,1,1,2,3,0,5,6,0,11,12,13,14,15,16,2');">Player 1 won</div>
-		<div class="clickable" onClick="setState('1,2,1,2,3,0,5,6,0,11,12,13,14,15,16,2');">Player 2 won</div>
+		 -->
 		
 	</body>
 </html>

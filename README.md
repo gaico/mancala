@@ -60,4 +60,4 @@ Op andere platforms kan in de hoofdirectory het commando *java -jar -Dserver.por
 
 De applicatie start op poort 9090, mocht deze in gebruik zijn dan kan de poort worden aangepast door het **start.bat** script, of commando, aan te passen door 9090 te vervangen door een vrij poortnummer.
 
-De test front-end kan daarna geopend worden in de browser: http://localhost:9090/index.html. Mocht het poortnummer aangepast zijn doe dat dan ook hier. De plain text interface is aan te roepen op http://localhost:8090/?move=<nummer tussen 1 en 6>
+De test front-end kan daarna geopend worden in de browser: http://localhost:9090/index.html. Mocht het poortnummer aangepast zijn doe dat dan ook hier. De plain text interface is aan te roepen op http://localhost:8090/?move=<nummer tussen 1 en 6\>
