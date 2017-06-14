@@ -1,0 +1,1 @@
+java -jar -Dserver.port=9090 target\mancala-0.0.1-SNAPSHOT.jar 
