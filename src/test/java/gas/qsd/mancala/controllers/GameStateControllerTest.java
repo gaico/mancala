@@ -22,7 +22,7 @@ public class GameStateControllerTest {
 	
 	@Test
 	public void testValidateGameInputPlayerTurnMustBeADigit1Or2(){
-		assertEquals("First digit must be from 0 to 2, as it is the id of the player that has the turn",
+		assertEquals("First digit must be from 1 or 2, as it the id of the player that has the turn",
 				getExceptionText("7,0,1,2,3,4,5,6,0,1,2,3,4,5,6,0", "1"));
 	}
 	

@@ -9,7 +9,13 @@ public class MancalaGame {
 	private final Player southPlayer;
 	private final Player northPlayer;
 	
-	public MancalaGame(int[] shortHandBoardState, final Player southPlayer, final Player northPlayer) {
+	public MancalaGame(final Pot[] pots, final Player southPlayer, final Player northPlayer) {
+		this.pots = pots;
+		this.southPlayer = southPlayer;
+		this.northPlayer = northPlayer;
+	}
+		
+	public MancalaGame(final int[] shortHandBoardState, final Player southPlayer, final Player northPlayer) {
 		this.southPlayer = southPlayer;
 		this.northPlayer = northPlayer;
 		pots = new Pot[POTS_PER_PLAYER * 2];
