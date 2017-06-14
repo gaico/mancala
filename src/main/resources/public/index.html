@@ -32,11 +32,7 @@
 			var curentState;
 			
 			function setState(stateAsString) {
-				//alert(stateAsString);
-				
 				var state = stateAsString.split(",");
-				//alert(state);
-				
 				
 				playerThatHasTurn = state[0];
 				playerThatHasWon = state[1];
@@ -65,22 +61,12 @@
 				elem = document.getElementById(player + '.' + pot);
 				elem.innerHTML = numberOfStones;
 				
-				//alert(player +"="+ playerThatHasTurn);
-				//alert(player == playerThatHasTurn);
-				
-				
 				if(player == playerThatHasTurn && numberOfStones > 0){
 					elem.classList.add('clickable');
-					//elem.addEventListener("click", function(){
-					//	clickPot(player, pot);
-					//}, false);
-					elem.addEventListener("click", temp, false);
+					elem.addEventListener("click", move, false);
 				}else{
 					elem.classList.remove('clickable');
-					//elem.removeEventListener("click", function(){
-					//	clickPot(player, pot);
-					//}, false);
-					elem.removeEventListener("click", temp, false);
+					elem.removeEventListener("click", move, false);
 				}
 			}
 			function setStatusLine(message){
@@ -88,7 +74,6 @@
 				elem.innerHTML = message;
 						}
 			function clickPot(player, pot) {
-				//alert('player ' + player + ' clicked pot ' + pot); 
 				var xhr = new XMLHttpRequest();
 				xhr.open("PUT", "/?move=" + pot, true);
 				xhr.setRequestHeader("Content-type", "text/plain");
@@ -100,8 +85,7 @@
 				xhr.send(curentState);
 			}
 			
-			function temp(event, player, pot) {
-				//alert(event.currentTarget.id + ' ' + event.currentTarget.getAttribute('ownerId'), + ' ' + event.currentTarget.getAttribute('potId'));
+			function move(event) {
 				clickPot(event.currentTarget.getAttribute('ownerId'), event.currentTarget.getAttribute('potId'));
 			}
 			
