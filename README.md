@@ -4,7 +4,7 @@
 Uit de opdracht: *The objective of this assignment is to show how you’d model the game and its logic. The only requirement is that the game of Mancala is implemented with all its rules.*
 
 ### Ontwerp en model
-Het spel is te beschrijven als een opeenvolging van toestanden waarin het spel zich bevind (GameState). Bij zo een toestand zijn een aantal spelelementen van belang. Twee spelers (Player) die per persoon 7 vakjes (Pot) hebben, waarin zich de stenen bevinden, waarvan een de mancala is. Daarnaast zijn het spel en zijn regels (MancalaGame) belangrijk.
+Het spel is te beschrijven als een opeenvolging van toestanden waarin het spel zich bevind. Bij zo een toestand zijn een aantal spelelementen van belang. Twee spelers (Player) die per persoon 7 vakjes (Pot) hebben, waarin zich de stenen bevinden, waarvan een de mancala is. Daarnaast zijn het spel en zijn regels (MancalaGame) belangrijk.
 
 Het real world spelbord is een aaneenschakeling van vakjes (Pot) die een ketting vormen. Deze vakjes zijn te verdelen in twee helften. Elke speler (Player) kan een zet doen vanuit een van die helften.
 
@@ -43,7 +43,7 @@ Er is gekozen voor Spring-Boot, omdat hierin snel een applicatie met een http in
 Er wordt een user interface opgeleverd. Deze is echter bedoeld om de applicatie te testen en moet niet gezien worden als een productierijpe front-end.
 
 ### Todo
-GameState zou vervangen moeten worden door translator class, want GameState hoort niet in het model. Hierdoor zou vanuit de service deze nieuwe translator gebruikt kunnen worden. De logica in de constructor in MancalaGame die de shorthandGamestate als input heeft, kan dan verplaatst worden naar deze translator.
+<del>GameState zou vervangen moeten worden door translator class, want GameState hoort niet in het model. Hierdoor zou vanuit de service deze nieuwe translator gebruikt kunnen worden. De logica in de constructor in MancalaGame die de shorthandGamestate als input heeft, kan dan verplaatst worden naar deze translator.</del>
 
 ## Bouwen en runnen
 
