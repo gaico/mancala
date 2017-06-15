@@ -1,10 +1,7 @@
 package gas.qsd.mancala.service;
 
-import java.util.Arrays;
-
 import gas.qsd.mancala.model.MancalaGame;
-import gas.qsd.mancala.model.Player;
-import gas.qsd.mancala.model.Pot;
+import gas.qsd.mancala.translator.MancalaTranslator;
 
 public class MancalaService {
 

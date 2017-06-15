@@ -61,7 +61,8 @@ public class MancalaGame {
 		//      the player captures all of the stones in the pit directly across the board from where the last stone was placed
 		if(!potThatReceivedLastStone.isMancala()
 				&& potThatReceivedLastStone.stoneCount() == 1 
-				&& potThatReceivedLastStone.getPotAccross().stoneCount() > 0){
+				&& potThatReceivedLastStone.getPotAccross().stoneCount() > 0
+				&& potThatReceivedLastStone.getOwner().equals(playerCurrentTurn)){
 			playerCurrentTurn.getMancala().addStones(potThatReceivedLastStone.getPotAccross().takeAllStones());
 			playerCurrentTurn.getMancala().addStones(potThatReceivedLastStone.takeAllStones());
 		}

@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import gas.qsd.mancala.model.GameState;
-
 public class MancelaServiceTest {
 	
 	@Test
